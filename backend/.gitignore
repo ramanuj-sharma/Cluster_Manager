@@ -1,0 +1,8 @@
+.venv
+<<<<<<< Updated upstream
+__pycache__
+.DS_Store
+results/*
+=======
+__pycache__
+>>>>>>> Stashed changes
