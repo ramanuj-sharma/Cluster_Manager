@@ -1,0 +1,124 @@
+<h2>Help</h2>
+This section covers the information about Celonis and how this application works.
+
+<h3> Clustering </h3>
+Clustering analysis is an unsupervised learning method that separates the data points into several specific bunches or groups, 
+such that the data points in the same groups have similar properties and data points in different groups have different properties in some sense.
+
+<h3>Discover the Unknown</h3>
+This page helps you make new Clusters from the data pools and data models provided. You can also access the previous made clusters for future reference
+as well as to make any changes to them.
+When you click on the <b>Get Started</b> button, it will direct you to the preparations page which is further explained in the next steps.
+Under settings, you can set your URL and API Token which as mentioned in detail on the respective page.
+<br /><br />
+<img src="../assets/start-page.png" alt="image" width="750" height="400" class="home">
+
+<h3>Settings</h3>
+The user has to use this page to set up their Team URL, API Token and Token Type in order to retrieve the data from Celonis for analysis.
+<br /><br />
+<img src="../assets/settings.png" alt="image" width="750" height="400" class="home">
+
+<br /><br />
+
+<h3>Select Data Pool</h3>
+In this section, you start with choosing the data pool from a set of available options in the drop down menu. Then we click next to choose the respective data model.
+<br /><br />
+<img src="../assets/data-pool.png" alt="image" width="750" height="400" class="home">
+
+<h3>Select Data Model</h3>
+After choosing the required data pool, we get a set of options for the data models depending upon the selected data pool. Then we move further to selecting the parameters by clicking next.
+<br /><br />
+<img src="../assets/data-model.png" alt="image" width="750" height="400" class="home">
+
+
+<br /><br />
+
+<h3>Select Clustering Parameters</h3>
+This section gives the option of choosing the required parameters. User can choose the default parameters by selecting "along the control flow" option. In this selection, the clusters are formed using DBSCAN algorithm 
+in which again the user can either stick to the default parameters or choose the minimum points, epsilon and the Dimension Reduction Algorithm by unboxing the "estimate parameters for me" option. 
+The user has to select the feature for clustering as well from the drop down menu.
+<br /><br />
+<img src="../assets/parameters-1.png" alt="image" width="750" height="400" class="home">
+<br /><br />
+<img src="../assets/parameters-2.png" alt="image" width="750" height="400" class="home">
+
+<br /><br />
+Once the user chooses "along case or activity KPIs", they have to choose the activity they want to cluster along. Choose the Clustering Algorithm they 
+want to use other than DBSCAN. They can choose either K-Means or Gaussian Mixture and based on the selection, user has to choose the number of clusters they want to create along with the Dimensionality Reduction Algorithm.
+<br /><br />
+<img src="../assets/parameters-3.png" alt="image" width="750" height="400" class="home">
+
+<h4>DBSCAN</h4>
+Density-Based Clustering refers to unsupervised learning methods that identify distinctive groups/clusters in the data, based on the idea that a cluster in data space is a contiguous region of high point density, separated from other such clusters by contiguous regions of low point density.
+<br>
+Density-Based Spatial Clustering of Applications with Noise (DBSCAN) is a base algorithm for density-based clustering. It can discover clusters of different shapes and sizes from a large amount of data, which is containing noise and outliers.
+<br>
+The DBSCAN algorithm uses two parameters:
+
+minPts: The minimum number of points (a threshold) clustered together for a region to be considered dense.
+eps (ε): A distance measure that will be used to locate the points in the neighborhood of any point.
+
+These parameters can be understood if we explore two concepts called Density Reachability and Density Connectivity.
+
+Reachability in terms of density establishes a point to be reachable from another if it lies within a particular distance (eps) from it.
+
+Connectivity, on the other hand, involves a transitivity based chaining-approach to determine whether points are located in a particular cluster. For example, p and q points could be connected if p->r->s->t->q, where a->b means b is in the neighborhood of a.
+<br /><br />
+<h4>K-Means</h4>
+Kmeans algorithm is an iterative algorithm that tries to partition the dataset into Kpre-defined distinct non-overlapping subgroups (clusters) where each data point belongs to only one group. It tries to make the intra-cluster data points as similar as possible while also keeping the clusters as different (far) as possible. 
+It assigns data points to a cluster such that the sum of the squared distance between the data points and the cluster's centroid (arithmetic mean of all the data points that belong to that cluster) is at the minimum. 
+The less variation we have within clusters, the more homogeneous (similar) the data points are within the same cluster.
+<br /><br />
+<h4>Gaussian Mixture</h4>
+A Gaussian mixture model is a probabilistic model that assumes all the data points are generated from a mixture of a finite number of Gaussian distributions with unknown parameters. 
+One can think of mixture models as generalizing k-means clustering to incorporate information about the covariance structure of the data as well as the centers of the latent Gaussians.
+<br /><br />
+
+<h3>Cluster Ready</h3>
+Once the user has completed all the steps, they can have a summarized view of all their choices on the right hand side of the page. Once everything is set, click on 
+<b> Let's Go </b> to have the clusters and their information.
+<br /><br />
+<img src="../assets/cluster-ready.png" alt="image" width="750" height="400" class="home">
+
+<br /><br />
+
+<h3>Cluster Overview</h3>
+This section shows the final clusters that have been attained. You can dynamically change the parameters on this page as well and click on update to have the new clusters.
+On the right side, there is a summarized result of the clusters that can be referred to for having a better picture of the clusters.
+
+<br /><br />
+<img src="../assets/cluster-overview.png" alt="image" width="750" height="400" class="home">
+
+<br /><br />
+
+<h3>Directly Follows Graph for Clusters</h3>
+Once the Clusters have been generated, click on any of the clusters to view its respective Directly Follows Graph. Start and End of the activity has been depicted using green colour 
+to understand the graph better. Several KPIs of the respective cluster is shown on the right hand side of the page. You can zoom in the graph to have a closer look at the graph as shown in the image below. 
+
+The user can also change the min frequency bar to adjust the graph according to their needs and change the label from the dropdown menu provided to choose exactly what they want to look for.
+<br /><br />
+
+<img src="../assets/dfg-1.png" alt="image" width="750" height="400" class="home">
+<img src="../assets/dfg-2.png" alt="image" width="750" height="400" class="home">
+
+<br /><br />
+
+<h3>Comparison of Directly Follows Graph of Clusters</h3>
+The user can compare the DFGs of Clusters for various transitions. Choose the cluster you want to compare with from the dropdown menu and click on <b>Compare</b> button. 
+KPIs of both the clusters are also compared and shown on the right hand side of the page.
+<br /><br />
+
+<img src="../assets/dfg-compare.png" alt="image" width="750" height="400" class="home">
+
+<br /><br />
+
+<h3>Visualize Features</h3>
+Once you select visualize features, the user can plots and graphs for a better understanding of the processes and their features. The user can choose a specific feature from the dropdown list and 
+can view multiple graphs at a sungle time by clinking on <b>Add Graph</b>. Removing graphs is also possible with the use of <b>Remove Graph</b> button.
+<br /><br />
+Using the <b>Save and Finish</b> button, user can save their results for future references and can also download a pdf to share it with their team members.
+<br /><br />
+<img src="../assets/visualize-features.png" alt="image" width="750" height="400" class="home">
+
+<br /><br />
+

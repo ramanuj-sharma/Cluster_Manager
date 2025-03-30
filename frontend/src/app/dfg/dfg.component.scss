@@ -1,0 +1,50 @@
+#visNetwork {
+    width: 100%;
+    height: 39vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.network-frame {
+    border: 2px solid black;
+    height: 100%;
+}
+
+.wrapper {
+    height: 39vw;
+    position: relative;
+}
+
+#spinner {
+    width: 100%;
+    height: 18vw;
+    position: absolute;
+    top: 45%;
+    left: 45%;
+}
+
+.options {
+    height: 5.5em;
+    margin: 30px;
+    margin-bottom: 10px !important;
+}
+
+.label-container {
+  margin-left: 30px;
+}
+
+mat-form-field {
+    margin-left: 40px;
+    margin-right: 30px;
+}
+
+mat-slider {
+    margin: 8px;
+    margin-right: 10px;
+}
+
+.mat-mdc-slider {
+    max-width: 300px;
+    width: 100%;
+}

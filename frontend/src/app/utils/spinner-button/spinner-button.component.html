@@ -1,0 +1,7 @@
+<div class="button-container">
+    <div class="spinner-container">
+        <mat-spinner diameter="22" color="accent" *ngIf="pending"></mat-spinner>
+        <mat-icon color="accent" *ngIf="!pending">keyboard_arrow_right</mat-icon>
+    </div>
+    <button style="border-radius: 20px;" mat-flat-button color="primary" (click)="handle()" [disabled]="pending">&nbsp;&nbsp; <ng-content></ng-content></button>
+</div>

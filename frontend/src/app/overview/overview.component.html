@@ -1,0 +1,58 @@
+<div>
+    <h2>Cluster Overview</h2>
+    <p class="subtitle">Dimensionality Reduced Event Log Representation <tooltip
+            tooltip="Your event log contains many possible values. To allow for a compact 2D representation, we compressed all the information of your log into two new dimensions used below.">
+        </tooltip>
+    </p>
+</div>
+<div>
+    <div class="map-container">
+        <div class="map-frame">
+            <loader *ngIf="loading"></loader>
+            <div id="map" [hidden]="loading"></div>
+        </div>
+    </div>
+</div>
+<div class="options" [style.display]="algorithm == 'flow' ? '' : 'flex'">
+    <div class="label-container" *ngIf="algorithm == 'flow'">
+        <label class="name-label">MIN_PTS <tooltip tooltip="Give the number of cases a cluster should minimally consist of."></tooltip></label>
+        <label class="name-label">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; EPSILON <tooltip tooltip="Specify the maximal distance between two cases so that they are grouped together. A small value results in more but compact clusters."></tooltip></label>
+        <label class="value-label" style="color: rgba(0,0,0,0);">.</label>
+    </div>
+    <mat-slider *ngIf="algorithm == 'flow'" color="primary" [max]="max_pts" min="1" step="1" discrete="true">
+        <input matSliderThumb [(ngModel)]="min_pts" [disabled]="loading">
+    </mat-slider>
+    <mat-form-field *ngIf="algorithm != 'flow'" color="accent" class="input2" appearance="outline">
+        <mat-label>Clustering Algorithm</mat-label>
+        <mat-select [(ngModel)]="alg"  [disabled]="loading">
+            <mat-select-trigger>{{alg == 'gauss' ? 'Gaussian Mixture' : 'K-Means'}}</mat-select-trigger>
+            <mat-option value="kmeans">K-Means <tooltip tooltip="If you assume your cluster data to be spherical shaped, this algorithm produces good results."></tooltip></mat-option>
+            <mat-option value="gauss">Gaussian Mixture <tooltip tooltip="If you assume your cluster data to be normally distributed, this algorithm produces good results."></tooltip></mat-option>
+        </mat-select>
+    </mat-form-field>
+    <span *ngIf="algorithm != 'flow'" style="flex: 1 1 auto;"></span>
+    &nbsp;&nbsp;
+    <mat-slider *ngIf="algorithm == 'flow'" color="primary" max="5" min="0" step="1" discrete="true">
+        <input matSliderThumb [(ngModel)]="epsilon" [disabled]="loading">
+    </mat-slider>
+    <mat-form-field *ngIf="algorithm != 'flow'" class="input2" color="accent" appearance="outline">
+        <mat-label>Number of Clusters</mat-label>
+        <input matInput type="number" [(ngModel)]="k" min="2" max="20" step="1" pattern="\d+" placeholder="# Clusters" [disabled]="loading">
+        <tooltip matSuffix tooltip="Specify the number of clusters you would like to achieve. This number should be at least two."></tooltip>
+    </mat-form-field>
+    <span *ngIf="algorithm != 'flow'" style="flex: 1 1 auto;"></span>
+    &nbsp;&nbsp;
+    <mat-form-field color="accent" appearance="outline">
+        <mat-label>Dimension Reduction Algorithm</mat-label>
+        <mat-select [(ngModel)]="dimension_alg" [disabled]="loading">
+            <mat-select-trigger>{{dimension_alg}}</mat-select-trigger>
+            <mat-option value="TSVD">TSVD (Default) <tooltip tooltip="This is a fast approximation for generating the 2D cluster shapes. Use this technique if your feature values are sparsely distributed over the event log."></tooltip></mat-option>
+            <mat-option value="PCA">PCA <tooltip tooltip="This is a fast approximation for generating the 2D cluster shapes. Use this technique if your feature values are densely distributed over the event log."></tooltip></mat-option>
+            <mat-option value="PaCMAP">PaCMAP (Costly) <tooltip tooltip="This is a strong approximation for generating the cluster shapes. It maintains most of the relations between your cases and projects them in 2D. It can take quite a while."></tooltip></mat-option>
+        </mat-select>
+    </mat-form-field>
+    <span *ngIf="algorithm != 'flow'" style="flex: 1 1 auto;"></span>
+    &nbsp;&nbsp;
+    <button mat-flat-button color="primary" (click)="update()" [disabled]="loading" [style.top]="algorithm == 'flow' ? '' : '1em'"> &nbsp; UPDATE <span
+            class="material-icons">refresh</span></button>
+</div>

@@ -1,0 +1,36 @@
+<div>
+  <h2>Directly Follows Graph for Cluster {{this.cluster_id}}</h2>
+</div>
+<div class="wrapper">
+  <div class="network-frame">
+    <div id="canvas">
+        <div id="visNetwork" #visNetwork></div>
+    </div>
+    <div id="spinner" *ngIf="loading">
+      <mat-spinner color="primary"></mat-spinner>
+    </div>
+  </div> 
+</div>
+<div class="options">
+  <div class="label-container">
+    <label class="name-label">Minimum Frequency of Transition</label>
+  </div>
+  <mat-slider color="primary" [max]="80" min="0" step="1" discrete="true" [displayWith]="formatLabel">
+    <input matSliderThumb [(ngModel)]="cutOff" [disabled]="loading">
+  </mat-slider>
+  <tooltip
+    tooltip="The DFG can be very chaotic, if all transitions are used. This is why we filter the transitions based on the number of cases flowing through each transition. The slider determines the percentage of cases above which a transition is displayed. Due to the filtering the inflow and outflow of a node may not coincide.">
+  </tooltip>
+  <mat-form-field color="accent" appearance="outline">
+    <mat-label>Transition Label</mat-label>
+    <mat-select [(ngModel)]="label_type" [disabled]="loading">
+        <mat-option value="Frequency">Number of Cases</mat-option>
+        <mat-option value="Median (Hours)">Median Throughput Time (Hours)</mat-option>
+        <mat-option value="Median (Days)">Median Throughput Time (Days)</mat-option>
+        <mat-option value="Mean (Hours)">Mean Throughput Time (Hours)</mat-option>
+        <mat-option value="Mean (Days)">Mean Throughput Time (Days)</mat-option>
+    </mat-select>
+</mat-form-field>
+  <button mat-flat-button color="primary" (click)="plotDFG()" [disabled]="loading"> &nbsp; UPDATE <span
+    class="material-icons">refresh</span></button>
+</div>

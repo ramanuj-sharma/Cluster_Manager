@@ -1,0 +1,39 @@
+#header-container {
+    display: flex;
+    justify-content: baseline;
+    align-content: center;
+}
+
+button {
+    margin: 0.5vw;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 0.4vw;
+    margin-right: 1vw;
+    margin-bottom: 0;
+}
+
+#chart-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#spinner-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+}
+
+mat-spinner {
+    position: relative;
+    left: 37%
+}
+
+.chart {
+    margin-right: 0.5vw;
+}

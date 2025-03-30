@@ -1,0 +1,37 @@
+<h2>Discover The Unknown</h2>
+
+<mat-card class="card start">
+    <mat-card-header>
+        <mat-card-title>Start New Clustering</mat-card-title>
+        <mat-card-subtitle>Choose data and gain insides</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-icon color="accent">add</mat-icon>
+    </mat-card-content>
+    <mat-card-actions>
+        <span style="flex: 1 1 auto;"></span>
+        <spinner-button (action)="newClustering()">GET STARTED</spinner-button>
+    </mat-card-actions>
+</mat-card>
+
+<br /><br />
+
+<h2>Restore a Discovery</h2>
+
+<div id="restore">
+    <mat-card class="card start" *ngFor="let cl of clusterings">
+        <mat-card-header>
+            <mat-card-title>{{cl.getModelName()}}</mat-card-title>
+            <mat-card-subtitle>{{cl.getPoolName()}} - {{cl.getModelName()}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-icon color="accent">format_list_bulleted</mat-icon> {{cl.getLogSize()}} cases<br />
+            <mat-icon color="accent">cookie</mat-icon> {{cl.getClusters()}} clusters<br />
+            <mat-icon color="accent">date_range</mat-icon> {{cl.getDate()}}
+        </mat-card-content>
+        <mat-card-actions>
+            <span style="flex: 1 1 auto;"></span>
+            <spinner-button (action)="loadClustering(cl.getID())">LOAD</spinner-button>
+        </mat-card-actions>
+    </mat-card>
+</div>
