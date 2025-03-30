@@ -1,0 +1,151 @@
+<h2>Preparation</h2>
+<mat-stepper linear #stepper>
+    <mat-step [stepControl]="firstFormGroup" [editable]="false">
+        <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Select Data Pool</ng-template>
+            <mat-form-field class="input" color="accent" appearance="outline">
+                <mat-label>Select Data Pool</mat-label>
+                <input type="text" matInput formControlName="firstCtrl" [formControl]="dataPool"
+                    [matAutocomplete]="autopool" required>
+                <mat-autocomplete #autopool="matAutocomplete" [displayWith]="displayDataPool"
+                    (optionSelected)='pool = $event.option.value'>
+                    <mat-option *ngFor="let option of dataPoolFilteredOptions | async" [value]="option">
+                        {{option.getName()}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <div>
+                <button mat-flat-button matStepperNext color="primary" (click)="setPool()">NEXT</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup" [editable]="false">
+        <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>Select Data Model</ng-template>
+            <mat-form-field class="input" color="accent" appearance="outline">
+                <mat-label>Select Data Model</mat-label>
+                <input type="text" matInput formControlName="secondCtrl" [formControl]="dataModel"
+                    [matAutocomplete]="automodel" required>
+                <mat-autocomplete #automodel="matAutocomplete" [displayWith]="displayDataModel"
+                    (optionSelected)='model = $event.option.value'>
+                    <mat-option *ngFor="let option2 of dataModelFilteredOptions | async" [value]="option2">
+                        {{option2.getName()}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <div>
+                <button mat-flat-button matStepperNext color="primary" (click)="setModel()">NEXT</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="thirdFormGroup" [editable]="false">
+        <form [formGroup]="thirdFormGroup">
+            <ng-template matStepLabel>Select Clustering Parameters</ng-template>
+
+            <label>I would like to cluster...</label>
+            <mat-radio-group
+            (change)="clickAuto()"
+            aria-labelledby="radio-group-label"
+            class="radio-group"
+            [(ngModel)]="clustering_goal" formControlName="goalCtrl">
+            <mat-radio-button class="radio-button" value="flow" color="primary">
+                ... along the control flow. <tooltip
+                tooltip="Your event log contains many events. Select this option, if you want to find out more about the order of such events.     E.g.: You want to cluster the cases based on the order of resources dealing with the case.">
+            </tooltip>
+            </mat-radio-button>
+            <mat-radio-button class="radio-button" value="punctual" color="primary">
+                ... along case or activity KPIs. <tooltip
+                tooltip="Your event log contains many cases consisting of multiple events. Select this option, if you want to find out more about the present features of your cases and their events. Order does not matter for your analysis.     E.g.: You want to cluster the cases based on their net order value.">
+            </tooltip>
+            </mat-radio-button>
+            </mat-radio-group>
+
+            <div [hidden]="clustering_goal != 'flow'">
+            <label>Clustering along the control flow:</label><br />
+            <mat-checkbox matInput formControlName="fifthCtrl" [(ngModel)]="auto_estimate" (click)="clickAuto()" color="primary">Estimate parameters for me.</mat-checkbox> <tooltip tooltip="Based on your event log, the clusters will be initially formed using a parameter suggestion. You have full control to modify these afterwards."></tooltip>
+            <br />
+            <div [hidden]="auto_estimate">
+            <span [hidden]="auto_estimate" style="font-size: small;">Manual Parameter Definition:</span><br />
+            <mat-form-field [hidden]="auto_estimate" class="input2" color="accent" appearance="outline">
+                <mat-label>MIN_PTS</mat-label>
+                <input matInput formControlName="thirdCtrl" type="number" [(ngModel)]="minpts" min="1" step="1" pattern="\d+" placeholder="MIN_PTS" [required]="!auto_estimate" [readonly]="auto_estimate">
+                <tooltip matSuffix tooltip="Give the number of cases a cluster should minimally consist of."></tooltip>
+            </mat-form-field>
+            <span style="flex: 1 1 auto;">&nbsp;&nbsp;</span>
+            <mat-form-field [hidden]="auto_estimate" class="input2" color="accent" appearance="outline">
+                <mat-label>EPSILON</mat-label>
+                <input matInput formControlName="fourthCtrl" type="number" [(ngModel)]="epsilon" min="0" max="5" step="1" pattern="\d+" placeholder="EPSILON" [required]="!auto_estimate" [readonly]="auto_estimate">
+                <tooltip matSuffix tooltip="Specify the maximal distance between two cases so that they are grouped together. A small value results in more but compact clusters."></tooltip>
+            </mat-form-field>
+            <span style="flex: 1 1 auto;">&nbsp;&nbsp;</span>
+            <mat-form-field [hidden]="auto_estimate" color="accent" class="input2" appearance="outline">
+                <mat-label>Dimension Reduction Algorithm</mat-label>
+                <mat-select [(ngModel)]="dimension_alg" formControlName="sixCtrl">
+                    <mat-select-trigger>{{dimension_alg}}</mat-select-trigger>
+                    <mat-option value="TSVD">TSVD (Default) <tooltip tooltip="This is a fast approximation for generating the 2D cluster shapes. Use this technique if your feature values are sparsely distributed over the event log."></tooltip></mat-option>
+                    <mat-option value="PCA">PCA <tooltip tooltip="This is a fast approximation for generating the 2D cluster shapes. Use this technique if your feature values are densely distributed over the event log."></tooltip></mat-option>
+                    <mat-option value="PaCMAP">PaCMAP (Costly) <tooltip tooltip="This is a strong approximation for generating the cluster shapes. It maintains most of the relations between your cases and projects them in 2D. It can take quite a while."></tooltip></mat-option>
+                </mat-select>
+            </mat-form-field>
+            </div>
+            <br />
+            <span style="font-size: small;">Select the Feature for Clustering on Event Level:</span><br />
+            <mat-form-field color="accent" class="input2" appearance="outline">
+                <mat-label>Cluster Feature</mat-label>
+                <mat-select [(ngModel)]="column" formControlName="seventhCtrl">
+                    <mat-option *ngFor="let col of activity_columns" value="{{col}}">{{col}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            </div>
+            <div [hidden]="clustering_goal != 'punctual'">
+                <label>Clustering along case and activity KPIs:</label><br />
+                <mat-form-field color="accent" appearance="outline" style="width: 23vw">
+                    <mat-label>Features</mat-label>
+                    <mat-select formControlName="eighthCtrl" multiple [required]="clustering_goal == 'punctual'">
+                      <mat-optgroup *ngFor="let group of features_fixed" [label]="group.type">
+                        <mat-option class="option" *ngFor="let feature of group.features" [value]="feature">
+                        {{feature.full_name}}
+                        </mat-option>
+                    </mat-optgroup>
+                    </mat-select>
+                </mat-form-field>
+            <br />
+                <mat-form-field color="accent" class="input2" appearance="outline">
+                    <mat-label>Clustering Algorithm</mat-label>
+                    <mat-select [(ngModel)]="alg" formControlName="ninthCtrl">
+                        <mat-select-trigger>{{alg == 'gauss' ? 'Gaussian Mixture' : 'K-Means'}}</mat-select-trigger>
+                        <mat-option value="kmeans">K-Means <tooltip tooltip="If you assume your cluster data to be spherical shaped, this algorithm produces good results."></tooltip></mat-option>
+                        <mat-option value="gauss">Gaussian Mixture <tooltip tooltip="If you assume your cluster data to be normally distributed, this algorithm produces good results."></tooltip></mat-option>
+                </mat-select>
+            </mat-form-field>
+            <span style="flex: 1 1 auto;">&nbsp;&nbsp;</span>
+            <mat-form-field class="input2" color="accent" appearance="outline">
+                <mat-label>Number of Clusters</mat-label>
+                <input matInput formControlName="tenthCtrl" type="number" [(ngModel)]="k" min="2" max="20" step="1" pattern="\d+" placeholder="# Clusters" [required]="clustering_goal == 'punctual'">
+                <tooltip matSuffix tooltip="Specify the number of clusters you would like to achieve. This number should be at least two."></tooltip>
+            </mat-form-field>
+            <span style="flex: 1 1 auto;">&nbsp;&nbsp;</span>
+                <mat-form-field color="accent" class="input2" appearance="outline">
+                    <mat-label>Dimension Reduction Algorithm</mat-label>
+                    <mat-select [(ngModel)]="dimension_alg" formControlName="sixCtrl">
+                        <mat-select-trigger>{{dimension_alg}}</mat-select-trigger>
+                        <mat-option value="TSVD">TSVD (Default) <tooltip tooltip="This is a fast approximation for generating the 2D cluster shapes. Use this technique if your feature values are sparsely distributed over the event log."></tooltip></mat-option>
+                        <mat-option value="PCA">PCA <tooltip tooltip="This is a fast approximation for generating the 2D cluster shapes. Use this technique if your feature values are densely distributed over the event log."></tooltip></mat-option>
+                        <mat-option value="PaCMAP">PaCMAP (Costly) <tooltip tooltip="This is a strong approximation for generating the cluster shapes. It maintains most of the relations between your cases and projects them in 2D. It can take quite a while."></tooltip></mat-option>
+                </mat-select>
+            </mat-form-field>
+            </div>
+            <div>
+                <button mat-flat-button matStepperNext color="primary" (click)="setParam()">NEXT</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <div id="ready">
+            <img src="../../assets/ready.svg">
+            <br />
+            <p>Cluster Manager is ready to discover!</p>
+        </div>
+    </mat-step>
+</mat-stepper>

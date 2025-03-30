@@ -1,0 +1,30 @@
+.chart {
+    width: 35vw;
+}
+
+.selector{
+    width: 23vw;
+    margin-right: 1vw;
+}
+
+
+.wrapper {
+    height: 20vw;
+    position: relative;
+}
+
+#canvas {
+    width: 100%;
+    height: 18vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#spinner {
+    width: 100%;
+    height: 18vw;
+    position: absolute;
+    top: 35%;
+    left: 35%;
+}

@@ -1,0 +1,62 @@
+.card {
+    max-width: 400px;
+}
+
+mat-card-content {
+    border: dashed 3px black;
+
+    /* Individual border image properties */
+    /*border-image-source: url("http://i.stack.imgur.com/wLdVc.png");
+    border-image-slice: 2;
+    border-image-repeat: round;*/
+
+    text-align: center;
+    height: 200px;
+    vertical-align: middle;
+    margin: 10px;
+    border-radius: 10px;
+
+    mat-icon {
+        transform: scale(5);
+        position: relative;
+        top: 90px;
+    }
+}
+
+.spinner-container {
+    position: absolute;
+    top: 0;
+    left: 2px;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.button-container {
+    display: inline-block;
+    position: relative;
+}
+
+#restore {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+
+    mat-card-content {
+        text-align: left;
+        padding: 1em;
+        font-size: large;
+        height: fit-content;
+        line-height: 180%;
+    }
+
+    mat-icon {
+        transform: scale(1);
+        position: inherit;
+        vertical-align: middle;
+    }
+}

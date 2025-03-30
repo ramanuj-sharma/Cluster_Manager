@@ -1,0 +1,17 @@
+<div *ngIf="!loading">
+    <div id="header-container">
+        <h2>Visualization of Features</h2>
+        <button mat-flat-button color="primary" (click)="deletePlot()" [disabled]="counter <= 1">&nbsp; Remove Graph<span class="material-icons">
+            remove </span></button> 
+        <button mat-flat-button color="primary" (click)="addPlot()" [disabled]="counter >= 6">&nbsp; Add Graph<span 
+            class="material-icons">add </span></button>
+    </div>        
+    <div id="chart-container">
+        <app-chart class="chart" *ngFor="let ids of generateID()" [features]="features" [ID]="ids"></app-chart>
+    </div>
+    
+</div>
+<div id="spinner-container" *ngIf="loading">
+    <h3>Tyring to retrieve columns from Data Model...</h3>
+    <mat-spinner color="primary"></mat-spinner>
+</div>

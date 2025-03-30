@@ -1,0 +1,96 @@
+.subtitle {
+    margin-top: -20px;
+    font-size: 80%;
+    color: gray;
+}
+
+.map-container {
+    position: absolute;
+    top: 6em;
+    left: 0;
+    right: 0;
+    bottom: 5.5em;
+    margin: 30px;
+}
+
+.map-frame {
+    border: 2px solid black;
+    height: 100%;
+}
+
+#map {
+    height: 100%;
+    background: white;
+}
+
+.legend {
+    line-height: 18px;
+    color: #555;
+}
+
+.legend i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0.7;
+}
+
+.info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+.info h4 {
+    margin: 0 0 5px;
+    color: #777;
+}
+
+.options {
+    height: 5.5em;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: absolute;
+    margin: 30px;
+    margin-bottom: 10px !important;
+}
+
+.label-container {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 10px;
+    margin-bottom: -15px;
+    max-width: calc(2*284px + 60px);
+}
+
+.result-card .value-label {
+    font-weight: 600;
+}
+
+mat-slider {
+    margin: 8px;
+}
+
+.mat-mdc-slider {
+    max-width: 300px;
+    width: 100%;
+}
+
+/* https://stackoverflow.com/questions/75609221/styling-the-angular-material-15-slider */
+/* Change style of active track */
+::ng-deep .mat-primary .mdc-slider__track--active_fill {
+    background-color: black;
+    border: 0px solid black !important; /* Removes border from active track */
+    border-radius: 3px;
+}
+
+/* Change style of inactive track */
+::ng-deep .mat-primary .mdc-slider__track--inactive {
+    background-color: #555 !important;
+    border-radius: 3px;
+}

@@ -1,0 +1,188 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+
+
+
+
+/* Definitions */
+
+$md-primary: (
+    50 : #ebffea,
+    100 : #ceffcb,
+    200 : #aeffa8,
+    300 : #8dfe85,
+    400 : #74fe6a,
+    500 : #5cfe50,
+    600 : #54fe49,
+    700 : #4afe40,
+    800 : #41fe37,
+    900 : #30fd27,
+    A100 : #ffffff,
+    A200 : #ffffff,
+    A400 : #d4ffd3,
+    A700 : #bcffb9,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$md-accent: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #000000,
+    600 : #000000,
+    700 : #000000,
+    800 : #000000,
+    900 : #000000,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+// Fonts
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+
+
+$fontConfig: (
+  display-4: mat.define-typography-level(90px, 112px, 500, 'Poppins', -0.0167em),
+  display-3: mat.define-typography-level(56px, 56px, 500, 'Poppins', -0.0089em),
+  display-2: mat.define-typography-level(45px, 48px, 500, 'Poppins', 0.0000em),
+  display-1: mat.define-typography-level(34px, 40px, 500, 'Poppins', 0.0074em),
+  headline: mat.define-typography-level(24px, 32px, 500, 'Poppins', 0.0000em),
+  title: mat.define-typography-level(20px, 32px, 500, 'Poppins', 0.0075em),
+  subheading-2: mat.define-typography-level(16px, 28px, 500, 'Poppins', 0.0094em),
+  subheading-1: mat.define-typography-level(15px, 24px, 500, 'Poppins', 0.0067em),
+  body-2: mat.define-typography-level(14px, 24px, 500, 'Poppins', 0.0179em),
+  body-1: mat.define-typography-level(14px, 20px, 400, 'Poppins', 0.0179em),
+  button: mat.define-typography-level(14px, 14px, 500, 'Poppins', 0.0893em),
+  caption: mat.define-typography-level(12px, 20px, 500, 'Poppins', 0.0333em),
+  input: mat.define-typography-level(inherit, 1.125, 500, 'Poppins', 1.5px)
+); 
+
+
+
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$frontend-primary: mat.define-palette($md-primary);
+$frontend-accent: mat.define-palette($md-accent);
+//$frontend-primary: mat.define-palette(mat.$indigo-palette);
+//$frontend-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$frontend-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$frontend-theme: mat.define-light-theme((
+  color: (
+    primary: $frontend-primary,
+    accent: $frontend-accent,
+    warn: $frontend-warn,
+  ),
+  typography: $fontConfig
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($frontend-theme);
+
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: "Poppins", "Helvetica Neue", sans-serif; }
+// Specific component overrides, pieces that are not in line with the general theming
+
+// Handle buttons appropriately, with respect to line-height
+.mat-raised-button, .mat-stroked-button, .mat-flat-button {
+  padding: 0 1.15em;
+  margin: 0 .65em;
+  min-width: 3em;
+  line-height: 36.4px
+}
+
+.mat-standard-chip {
+  padding: .5em .85em;
+  min-height: 2.5em;
+}
+
+.material-icons {
+  font-size: 24px;
+  font-family: 'Material Icons', 'Material Icons';  
+  .mat-badge-content {
+    font-family: 'Poppins';
+  }
+}
+
+button[mat-flat-button] {
+  border-radius: 20px;
+}
+
+* {
+  font-family: 'Poppins';
+}
+
+h4 {
+  margin-bottom: -6px;
+}
+
+h4 + span, h4 + ul {
+  color: gray;
+  font-size: small;
+}
+
+a[color*="primary"] {
+  color: #5cfe50;
+}
+
+a[color*="accent"] {
+  color: #000000;
+  text-decoration: underline;
+  text-decoration-color: #5cfe50;
+}

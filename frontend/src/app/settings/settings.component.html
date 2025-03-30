@@ -1,0 +1,38 @@
+<h2>Settings</h2>
+The following information is required by the Cluster Manager to work properly.
+
+<h3>Celonis EMS Access</h3>
+The Cluster Manager uses the Celonis EMS to retrieve data and perform calculations. The information can be found in the
+"Admin Settings" of your Celonis team.
+
+<h4>Team URL</h4>
+This corresponds to the base URL of the Celonis team you wish to retrieve data from.
+<br /><br />
+<mat-form-field class="form-field" color="accent" appearance="outline">
+    <mat-label>URL</mat-label>
+    <input matInput type="text" [(ngModel)]="key.url" placeholder="https://team.celonis.cloud" [disabled]="pending">
+</mat-form-field>
+
+<h4>API Token</h4>
+The Cluster Manager needs access to your team. You first need to generate an API token in the Celonis EMS with all rights granted. Enter this API token below.
+<br /><br />
+<mat-form-field class="form-field" color="accent" appearance="outline">
+    <mat-label>Token</mat-label>
+    <input matInput [type]="token_visible ? 'text' : 'password'" [(ngModel)]="key.token" placeholder="OIUGWEN2345iegbZWVFubgfer..." [disabled]="pending">
+    <button mat-icon-button matSuffix (click)="token_visible = !token_visible" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="!token_visible">
+        <mat-icon>{{!token_visible ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+</mat-form-field>
+
+<h4>Token Type</h4>
+Celonis allows multiple types of access tokens. Please enter the correct type below (case-sensitive).
+<br /><br />
+<mat-form-field class="form-field" color="accent" appearance="outline">
+    <mat-label>Type</mat-label>
+    <input matInput type="text" [(ngModel)]="key.type" placeholder="APP_KEY" [disabled]="pending">
+</mat-form-field>
+
+<br /><br />
+
+<button style="border-radius: 20px;" mat-flat-button color="primary" (click)="save()" [disabled]="pending"> &nbsp; Save <span class="material-icons">save</span></button> &nbsp; <mat-icon color="primary" class="state">{{state == true ? 'check' : ''}}</mat-icon>
+<mat-icon color="warn" class="state">{{state == false ? 'clear' : ''}}</mat-icon>
